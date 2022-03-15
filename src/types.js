@@ -1,0 +1,10 @@
+const ContactActionTypes = {
+    ADD_CONTACT: 'ADD_CONTACT',
+    SAVE_CONTACT: 'SAVE_CONTACT',
+    EXIT_CONTACT_FORM : 'EXIT_CONTACT_FORM',
+    DELETCT_CONTACT : 'DELETE_CONTACT',
+    EDIT_CONTACT: 'EDIT_CONTACT',
+    UPDATE_CONTACT: 'UPDATE_CONTACT',
+};
+
+export default ContactActionTypes;

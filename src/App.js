@@ -1,25 +1,27 @@
-import logo from './logo.svg';
+import { connect } from 'react-redux';
 import './App.css';
+import AddContact from './components/add-contact-component';
+import ContactForm from './components/contact-form-component';
+import ContactList from './components/contact-list-component'
 
-function App() {
+function App( {isAddContactFlag}) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='app-div '>
+     <h1 className='border'> Contacts</h1>
+     {
+       isAddContactFlag
+         ? <ContactForm />
+         : <>
+              <AddContact />
+              <ContactList />
+           </>
+     }
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+       return { isAddContactFlag: state.isAddContactFlag,}
+
+}
+export default connect(mapStateToProps)(App);
