@@ -33,7 +33,7 @@ const ContactList = ({ contactsArray }) => {
       filteredContactsArray.map((contact) => (<ContactDisplay key={contact.id} contact={contact} />))
       }
       {
-        filteredContactsArray.length === 0 ? <Error type={ErrorTypes.No_SEARCH_RESULTS} /> : <Error />
+        contactsArray.length !==0 && filteredContactsArray.length === 0 ? <Error type={ErrorTypes.No_SEARCH_RESULTS} /> : <Error />
       }
     </div>
   );
