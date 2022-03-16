@@ -25,9 +25,10 @@ const ContactList = ({ contactsArray }) => {
       :
       <></>
      }
-      {contactsArray.filter( contact => `${contact.email} ${contact.name}`.toLowerCase().includes(searchString.toLowerCase()))
-                     .map((contact) => (<ContactDisplay key={contact.id} contact={contact} />
-      ))}
+      {
+      contactsArray.filter( contact => `${contact.email} ${contact.name}`.toLowerCase().includes(searchString.toLowerCase()))
+                     .map((contact) => (<ContactDisplay key={contact.id} contact={contact} />))
+      }
     </div>
   );
 };

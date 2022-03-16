@@ -10,13 +10,13 @@ const ContactDisplay = ({ contact }) => {
 
   return (
     <div className="contact-display-div border">
-      <h1> {contact.name}</h1>
-      <h2>
+      <h2> {contact.name}</h2>
+      <h3>
         <span>
           <i class="bi bi-envelope"></i>
         </span>
         <span> {contact.email}</span>
-      </h2>
+      </h3>
       <button className="btn btn-danger btn-custom" onClick={handleDelete}>
         <i class="bi bi-trash"></i>
       </button>

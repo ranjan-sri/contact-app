@@ -3,16 +3,20 @@ import { useDispatch } from "react-redux";
 import uuid from "react-uuid";
 import { saveContact, exitContactForm, updateContact } from "../actions";
 import { connect } from "react-redux";
+import validator from 'validator';
+import Error from "./error-component";
+import ErrorTypes from "../errorTypes";
 
 const ContactForm = ({ updateContactObj }) => {
   const contact =
-    Object.keys(updateContactObj).length === 0
-      ? { name: "", email: "" }
-      : { ...updateContactObj };
+        Object.keys(updateContactObj).length === 0
+          ? { name: '', email: '' }
+          : { ...updateContactObj };
 
   const [name, setName] = useState(contact.name);
   const [email, setEmail] = useState(contact.email);
   const [isBlank, setIsBlank] = useState(false);
+  const [isValidEmail, setIsValidEmail] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -22,16 +26,21 @@ const ContactForm = ({ updateContactObj }) => {
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
+    setIsValidEmail(true);
   };
 
-  const handleSaveOrUpdate = (e) => {
-    name.length === 0 || email.length === 0
-      ? setIsBlank(true)
-      : Object.keys(updateContactObj).length === 0
+  const handleSaveOrUpdate = () => {
+    if (name.length === 0 || email.length === 0){
+      setIsBlank(true);
+      return;
+    } else if (!validator.isEmail(email)) {
+      setIsValidEmail(validator.isEmail(email));
+      return;
+    } 
+
+     Object.keys(updateContactObj).length === 0
       ? dispatch(saveContact({ id: uuid(), name: name, email: email }))
-      : dispatch(
-          updateContact({ id: updateContactObj.id, name: name, email: email })
-        );
+      : dispatch(updateContact({ id: updateContactObj.id, name: name, email: email }));
   };
 
   const handleExit = () => {
@@ -56,19 +65,22 @@ const ContactForm = ({ updateContactObj }) => {
       />
       <br />
       <button className="btn btn-success" onClick={handleSaveOrUpdate}>
-        <i class="bi bi-save"></i>
+        <i className="bi bi-save"></i>
       </button>
       <button className="btn btn-danger btn-custom" onClick={handleExit}>
-        <i class="bi bi-x"></i>
+        <i className="bi bi-x"></i>
       </button>
-      {isBlank ? (
-        <div className="alert alert-danger">
-          {" "}
-          Email and Name cannot be empty. Click <span><i class="bi bi-x"></i></span> instead.{" "}
-        </div>
-      ) : (
-        <></>
-      )}
+      { isBlank 
+        ? <Error type={ErrorTypes.BLANK_EMAIL_NAME} />
+        : <Error  />
+      }
+
+       { isValidEmail ?
+         <Error  />
+       : 
+        <Error type={ErrorTypes.INVALID_EMAIL} />
+      }
+
     </div>
   );
 };
