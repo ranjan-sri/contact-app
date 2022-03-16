@@ -1,7 +1,7 @@
 import React from "react";
 import ErrorTypes from "../errorTypes";
 
-const Error = ({ type, message }) => {
+const Error = ({ type }) => {
   switch (type) {
     case ErrorTypes.BLANK_EMAIL_NAME:
       return (
@@ -16,6 +16,13 @@ const Error = ({ type, message }) => {
           Email is invalid. Please enter a valid email{" "}
         </div>
       );
+      case ErrorTypes.No_SEARCH_RESULTS:
+        return (
+          <div className="alert alert-danger">
+            {" "}
+            No matches found. Try again{" "}
+          </div>
+        );
     default:
       return <></>;
   }
