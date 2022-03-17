@@ -22,11 +22,13 @@ const ContactForm = ({ updateContactObj }) => {
 
   const handleName = (e) => {
     setName(e.target.value);
+    setIsBlank(false);
   };
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
     setIsValidEmail(true);
+    setIsBlank(false);
   };
 
   const handleSaveOrUpdate = () => {
